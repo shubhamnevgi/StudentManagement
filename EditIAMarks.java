@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.sql.*;
 import java.util.*;
 
-class Attendence
+class IAMarks
         extends JFrame
         implements ActionListener {
 
@@ -34,8 +34,7 @@ class Attendence
     Vector students = new Vector();
     Vector subjects = new Vector();
 
-    private String mid[] = { "Select Month", "Jan-1", "Feb-2", "Mar-3", "Apr-4", "May-5", "June-6",
-            "July-7", "Aug-8", "Sep-9", "Oct-10", "Nov-11", "Dec-12" };
+    private String ia[] = { "1:IA 1", "2:IA 2"};
     private JComboBox months;
     private JLabel monthsn;
     private JLabel present;
@@ -46,8 +45,8 @@ class Attendence
     private JTextField tdays;
     private JButton update;
 
-    public Attendence() {
-        setTitle("Attendance");
+    public IAMarks() {
+        setTitle("IA Marks");
         setBounds(500, 100, 650, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -55,7 +54,7 @@ class Attendence
         c = getContentPane();
         c.setLayout(null);
 
-        title = new JLabel("Update Attendance");
+        title = new JLabel("Update IA Marks");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(300, 30);
         title.setLocation(150, 30);
@@ -92,31 +91,32 @@ class Attendence
         c.add(search);
         search.addActionListener(this);
 
-        monthsn = new JLabel("Month : ");
+        monthsn = new JLabel("IA : ");
         monthsn.setFont(new Font("Arial", Font.PLAIN, 18));
         monthsn.setSize(150, 20);
         monthsn.setLocation(20, 250);
         c.add(monthsn);
 
-        months = new JComboBox(mid);
+        months = new JComboBox(ia);
         months.setFont(new Font("Arial", Font.PLAIN, 16));
         months.setSize(300, 20);
         months.setLocation(100, 250);
         c.add(months);
 
-        present = new JLabel("Present");
+        present = new JLabel("Total");
         present.setFont(new Font("Arial", Font.PLAIN, 20));
         present.setSize(150, 20);
         present.setLocation(400, 320);
         c.add(present);
 
-        pdays = new JTextField("0");
+        pdays = new JTextField("20");
         pdays.setFont(new Font("Arial", Font.PLAIN, 20));
         pdays.setSize(100, 50);
         pdays.setLocation(400, 350);
+        pdays.setEditable(false);
         c.add(pdays);
 
-        absent = new JLabel("Absent");
+        absent = new JLabel("Obtained");
         absent.setFont(new Font("Arial", Font.PLAIN, 20));
         absent.setSize(150, 20);
         absent.setLocation(250, 320);
@@ -129,20 +129,7 @@ class Attendence
         adays.addActionListener(this);
         c.add(adays);
 
-        total = new JLabel("Total");
-        total.setFont(new Font("Arial", Font.PLAIN, 20));
-        total.setSize(150, 20);
-        total.setLocation(100, 320);
-        c.add(total);
-
-        tdays = new JTextField("0");
-        tdays.setFont(new Font("Arial", Font.PLAIN, 20));
-        tdays.setSize(100, 50);
-        tdays.setLocation(100, 350);
-        tdays.addActionListener(this);
-        c.add(tdays);
-
-        update = new JButton("Update Attendance");
+        update = new JButton("Update IA Marks");
         update.setFont(new Font("Arial", Font.PLAIN, 15));
         update.setSize(200, 30);
         update.setLocation(100, 450);
@@ -267,11 +254,6 @@ class Attendence
             subject.setEnabled(true);
             getStudents();
             getSubjects();
-        } else if (e.getSource() == adays || e.getSource() == tdays) {
-            Integer t = Integer.parseInt(tdays.getText());
-            Integer a = Integer.parseInt(adays.getText());
-            Integer p = t - a;
-            pdays.setText(p.toString());
         } else if (e.getSource() == update) {
             if (student.getSelectedItem().toString() == "Select Student") {
                 JOptionPane.showMessageDialog(student, "Select Student");
@@ -293,11 +275,10 @@ class Attendence
                     String v3 = st[1];
                     String su[] = ((String) subject.getSelectedItem()).split(":");
                     String v4 = su[0];
-                    String mo[] = ((String) months.getSelectedItem()).split("-");
-                    Integer v5 = Integer.parseInt(mo[1]);
-                    Integer v6 = Integer.parseInt(tdays.getText());
+                    String mo[] = ((String) months.getSelectedItem()).split(":");
+                    Integer v5 = Integer.parseInt(mo[0]);
+                    Integer v6 = Integer.parseInt(pdays.getText());
                     Integer v7 = Integer.parseInt(adays.getText());
-                    Integer v8 = v6 - v7;
 
                     System.out.println(v1);
                     System.out.println(v2);
@@ -306,15 +287,14 @@ class Attendence
                     System.out.println(v5);
                     System.out.println(v6);
                     System.out.println(v7);
-                    System.out.println(v8);
 
                     con = DriverManager.getConnection(
 						"jdbc:mysql://localhost/sql6525508",
 						"root", "root");
 
                     String query = "";
-                    query = "insert into Attendance (Year, Branch, RegNo, SCode, Mid, PresentD, AbsentD, Total)"
-                            + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+                    query = "insert into iamarks (Year, Branch, RegNo, SCode, IA, Total, Obtained)"
+                            + " values (?, ?, ?, ?, ?, ?, ?)";
 
                     ps = con.prepareStatement(query);
                     ps.setString(1, v2);
@@ -324,7 +304,6 @@ class Attendence
                     ps.setInt(5, v5);
                     ps.setInt(6, v6);
                     ps.setInt(7, v7);
-                    ps.setInt(8, v8);
 
                     ps.executeUpdate();
                     System.out.println("Record is updated successfully......");
@@ -341,9 +320,9 @@ class Attendence
 
 }
 
-class EditAttendence {
+class EditIAMarks {
 
     public static void main(String[] args) throws Exception {
-        Attendence A = new Attendence();
+        IAMarks A = new IAMarks();
     }
 }

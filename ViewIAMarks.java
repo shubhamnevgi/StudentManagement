@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.sql.*;
 import java.util.Vector;
 
-class ViewAttendance
+class ViewIAMarks
 		extends JFrame
 		implements ActionListener {
 
@@ -21,8 +21,7 @@ class ViewAttendance
 	private JButton fees;
 	private JButton iamarks;
 	private JButton project;
-	private String mid[] = { "Select Month", "Jan-1", "Feb-2", "Mar-3", "Apr-4", "May-5", "June-6",
-			"July-7", "Aug-8", "Sep-9", "Oct-10", "Nov-11", "Dec-12" };
+	private String ia[] = { "1", "2"};
 	String stat;
 	String reg;
 	String yr;
@@ -33,10 +32,10 @@ class ViewAttendance
 	JScrollPane scrollPane = new JScrollPane(table);
 	JFrame SBFrameDisplay;
 
-	String[] columnNames = { "Year", "Branch", "RegNo", "SCode", "Mid", "PresentD", "AbsentD", "Total" };
+	String[] columnNames = { "Year", "Branch", "RegNo", "SCode", "IA", "Obtained", "Total" };
 
-	public ViewAttendance() {
-		setTitle("Attendance");
+	public ViewIAMarks() {
+		setTitle("IA Marks");
 		setBounds(300, 0, 900, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -44,7 +43,7 @@ class ViewAttendance
 		c = getContentPane();
 		c.setLayout(null);
 
-		title = new JLabel("Attendance - ");
+		title = new JLabel("IA Marks - ");
 		title.setFont(new Font("Arial", Font.PLAIN, 30));
 		title.setSize(600, 30);
 		title.setLocation(200, 30);
@@ -56,13 +55,13 @@ class ViewAttendance
 		regno.setLocation(460, 30);
 		c.add(regno);
 
-		monthn = new JLabel("Month : ");
+		monthn = new JLabel("IA : ");
 		monthn.setFont(new Font("Arial", Font.PLAIN, 20));
 		monthn.setSize(100, 20);
 		monthn.setLocation(100, 100);
 		c.add(monthn);
 
-		month = new JComboBox(mid);
+		month = new JComboBox(ia);
 		month.setFont(new Font("Arial", Font.PLAIN, 15));
 		month.setSize(190, 20);
 		month.setLocation(200, 100);
@@ -83,7 +82,7 @@ class ViewAttendance
 		home.addActionListener(this);
 		c.add(home);
 
-		// iamarks = new JButton("IA Marks");
+		// iamarks = new JButton("Attendance");
 		// iamarks.setFont(new Font("Arial", Font.PLAIN, 18));
 		// iamarks.setSize(200, 20);
 		// iamarks.setLocation(600, 150);
@@ -129,10 +128,11 @@ class ViewAttendance
 						"jdbc:mysql://localhost/sql6525508",
 						"root", "root");
 
-				String query = "select * from attendance where RegNo = ? and Year = ? and Branch = ? and Mid = ? ";
+				String query = "select * from iamarks where RegNo = ? and Year = ? and Branch = ? and IA = ? ";
 				//String query = "select * from attendance where RegNo = 'T-21-0470'";
-				Integer mn = month.getSelectedIndex();
+				Integer mn = month.getSelectedIndex() + 1;
 				PreparedStatement statement = connection.prepareStatement(query);
+				System.out.println(statement);
 				statement.setString(1, reg);
 				System.out.println(reg);
 				statement.setString(2, yr);
@@ -166,11 +166,10 @@ class ViewAttendance
 					String r2 = resultSet.getString("Branch");
 					String r3 = resultSet.getString("RegNo");
 					String r4 = resultSet.getString("SCode");
-					Integer r5 = resultSet.getInt("Mid");
-					String r6 = resultSet.getString("PresentD");
-					String r7 = resultSet.getString("AbsentD");
-					String r8 = resultSet.getString("Total");
-					model.addRow(new Object[] { r2, r1, r3, r4, r5, r6, r7, r8 });
+					Integer r5 = resultSet.getInt("IA");
+					String r6 = resultSet.getString("Obtained");
+					String r7 = resultSet.getString("Total");
+					model.addRow(new Object[] { r2, r1, r3, r4, r5, r6, r7 });
 				}
 
 			} catch (Exception exception) {
@@ -184,9 +183,9 @@ class ViewAttendance
 }
 
 // Driver Code
-class Attendance {
+class Marks {
 
 	public static void main(String[] args) throws Exception {
-		ViewAttendance VA = new ViewAttendance();
+		ViewIAMarks VA = new ViewIAMarks();
 	}
 }

@@ -168,27 +168,27 @@ class ViewFrame
 		iamarks.setEnabled(false);
 		c.add(iamarks);
 
-		project = new JButton("Project");
-		project.setFont(new Font("Arial", Font.PLAIN, 18));
-		project.setSize(200, 20);
-		project.setLocation(600, 200);
-		project.addActionListener(this);
-		project.setEnabled(false);
-		c.add(project);
+		// project = new JButton("Project");
+		// project.setFont(new Font("Arial", Font.PLAIN, 18));
+		// project.setSize(200, 20);
+		// project.setLocation(600, 200);
+		// project.addActionListener(this);
+		// project.setEnabled(false);
+		// c.add(project);
 
-		fees = new JButton("Fees");
-		fees.setFont(new Font("Arial", Font.PLAIN, 18));
-		fees.setSize(200, 20);
-		fees.setLocation(600, 250);
-		fees.addActionListener(this);
-		fees.setEnabled(false);
-		c.add(fees);
+		// fees = new JButton("Fees");
+		// fees.setFont(new Font("Arial", Font.PLAIN, 18));
+		// fees.setSize(200, 20);
+		// fees.setLocation(600, 250);
+		// fees.addActionListener(this);
+		// fees.setEnabled(false);
+		// c.add(fees);
 
 		if (varstat.getText() == "Y") {
 			attendance.setEnabled(true);
-			fees.setEnabled(true);
+			// fees.setEnabled(true);
 			iamarks.setEnabled(true);
-			project.setEnabled(true);
+			// project.setEnabled(true);
 		}
 
 		setVisible(true);
@@ -238,6 +238,15 @@ class ViewFrame
 			f.setVisible(true);
 		}
 
+		else if (e.getSource() == iamarks) {
+			String a1 = regno.getText();
+			String a2 = varstat.getText();
+			String a3 = branch.getText();
+			String a4 = year.getText();
+			ViewIAMarks f = new ViewIAMarks();
+			f.update(a1, a2, a3, a4);
+			f.setVisible(true);
+		}
 		// else if (e.getSource() == ) {
 
 		// }
