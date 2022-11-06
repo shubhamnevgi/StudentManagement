@@ -32,7 +32,7 @@ class ViewTeach
 	private JLabel regno;
 
 	public ViewTeach() {
-		setTitle("Student Profile");
+		setTitle("Teacher Profile");
 		setBounds(300, 0, 900, 700);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setResizable(false);
@@ -40,7 +40,7 @@ class ViewTeach
 		c = getContentPane();
 		c.setLayout(null);
 
-		title = new JLabel("Student Profile - ");
+		title = new JLabel("Teacher Profile - ");
 		title.setFont(new Font("Arial", Font.PLAIN, 30));
 		title.setSize(600, 30);
 		title.setLocation(200, 30);
@@ -64,87 +64,44 @@ class ViewTeach
 		tname.setLocation(200, 100);
 		c.add(tname);
 
-		rollno = new JLabel("Roll No");
-		rollno.setFont(new Font("Arial", Font.PLAIN, 20));
-		rollno.setSize(100, 20);
-		rollno.setLocation(100, 150);
-		c.add(rollno);
-
-		trollno = new JLabel();
-		trollno.setFont(new Font("Arial", Font.PLAIN, 15));
-		trollno.setSize(150, 20);
-		trollno.setLocation(200, 150);
-		c.add(trollno);
-
 		gendern = new JLabel("Gender");
 		gendern.setFont(new Font("Arial", Font.PLAIN, 20));
 		gendern.setSize(100, 20);
-		gendern.setLocation(100, 200);
+		gendern.setLocation(100, 150);
 		c.add(gendern);
 
 		gender = new JLabel();
 		gender.setFont(new Font("Arial", Font.PLAIN, 15));
 		gender.setSize(75, 20);
-		gender.setLocation(200, 200);
+		gender.setLocation(200, 150);
 		c.add(gender);
-
-		bname = new JLabel("Branch");
-		bname.setFont(new Font("Arial", Font.PLAIN, 20));
-		bname.setSize(250, 20);
-		bname.setLocation(100, 250);
-		c.add(bname);
-
-		branch = new JLabel();
-		branch.setFont(new Font("Arial", Font.PLAIN, 15));
-		branch.setSize(250, 20);
-		branch.setLocation(200, 250);
-		c.add(branch);
-
-		yearn = new JLabel("Year");
-		yearn.setFont(new Font("Arial", Font.PLAIN, 20));
-		yearn.setSize(250, 20);
-		yearn.setLocation(100, 300);
-		c.add(yearn);
-
-		year = new JLabel();
-		year.setFont(new Font("Arial", Font.PLAIN, 15));
-		year.setSize(250, 20);
-		year.setLocation(200, 300);
-		c.add(year);
 
 		add = new JLabel("Address");
 		add.setFont(new Font("Arial", Font.PLAIN, 20));
 		add.setSize(100, 20);
-		add.setLocation(100, 350);
+		add.setLocation(100, 200);
 		c.add(add);
 
 		tadd = new JTextArea();
 		tadd.setFont(new Font("Arial", Font.PLAIN, 15));
 		tadd.setSize(200, 75);
-		tadd.setLocation(200, 350);
+		tadd.setLocation(200, 200);
 		tadd.setLineWrap(true);
 		tadd.setEnabled(false);
 		;
 		c.add(tadd);
 
-		varified = new JLabel("Varified : ");
+		varified = new JLabel("Admin : ");
 		varified.setFont(new Font("Arial", Font.PLAIN, 20));
 		varified.setSize(100, 50);
 		varified.setLocation(600, 300);
 		c.add(varified);
 
-		varstat = new JLabel("Y");
+		varstat = new JLabel();
 		varstat.setFont(new Font("Arial", Font.PLAIN, 15));
 		varstat.setSize(100, 50);
 		varstat.setLocation(600, 350);
 		c.add(varstat);
-
-		edit = new JButton("Edit");
-		edit.setFont(new Font("Arial", Font.PLAIN, 15));
-		edit.setSize(100, 20);
-		edit.setLocation(150, 510);
-		edit.addActionListener(this);
-		c.add(edit);
 
 		logout = new JButton("Logout");
 		logout.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -153,53 +110,29 @@ class ViewTeach
 		logout.addActionListener(this);
 		c.add(logout);
 
-		attendance = new JButton("Attendence");
+		attendance = new JButton("Add Attendence");
 		attendance.setFont(new Font("Arial", Font.PLAIN, 18));
 		attendance.setSize(200, 20);
 		attendance.setLocation(600, 100);
 		attendance.addActionListener(this);
-		attendance.setEnabled(false);
 		c.add(attendance);
 
-		iamarks = new JButton("IA Marks");
+		iamarks = new JButton("Add IA Marks");
 		iamarks.setFont(new Font("Arial", Font.PLAIN, 18));
 		iamarks.setSize(200, 20);
 		iamarks.setLocation(600, 150);
 		iamarks.addActionListener(this);
-		iamarks.setEnabled(false);
 		c.add(iamarks);
 
-		project = new JButton("Project");
-		project.setFont(new Font("Arial", Font.PLAIN, 18));
-		project.setSize(200, 20);
-		project.setLocation(600, 200);
-		project.addActionListener(this);
-		project.setEnabled(false);
-		c.add(project);
-
-		fees = new JButton("Fees");
-		fees.setFont(new Font("Arial", Font.PLAIN, 18));
-		fees.setSize(200, 20);
-		fees.setLocation(600, 250);
-		fees.addActionListener(this);
-		fees.setEnabled(false);
-		c.add(fees);
-
-		if (varstat.getText() == "Y") {
-			attendance.setEnabled(true);
-			fees.setEnabled(true);
-			iamarks.setEnabled(true);
-			project.setEnabled(true);
-		}
 
 		setVisible(true);
 	}
 
 	public void update(String s1, String s2, String s3, String s4) {
 		tname.setText(s1);
-		trollno.setText(s2);
-		gender.setText(s3);
-		branch.setText(s4);
+		gender.setText(s2);
+		tadd.setText(s3);
+		varstat.setText(s4);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -226,13 +159,11 @@ class ViewTeach
 		}
 
 		else if (e.getSource() == attendance) {
-			String a1 = regno.getText();
-			String a2 = varstat.getText();
-			String a3 = branch.getText();
-			String a4 = year.getText();
-			ViewAttendance f = new ViewAttendance();
-			f.update(a1, a2, a3, a4);
-			f.setVisible(true);
+			Attendence A = new Attendence();
+		}
+
+		else if(e.getSource()== iamarks){
+			IAMarks A = new IAMarks();
 		}
 
 		// else if (e.getSource() == ) {

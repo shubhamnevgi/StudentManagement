@@ -18,10 +18,7 @@ class Login
     private JComboBox actype;
     private String actypes[] = {
             "Student",
-            "Teacher",
-            "HOD",
-            "Principle",
-            "Admin"
+            "Teacher"
     };
     Integer close = 0;
 
@@ -121,7 +118,7 @@ class Login
                     }
                 }
                 else{
-                    String query = "select * from teachers";
+                    String query = "select * from teacher";
                     resultSet = statement.executeQuery(query);
                     String teachid;
                     String USR;
@@ -129,13 +126,13 @@ class Login
                     USR = username.getText().trim();
                     PSS = password.getText();
                     while (resultSet.next()) {
-                        teachid = resultSet.getString("TeachId").trim();
+                        teachid = resultSet.getString("RegNo").trim();
                         if (teachid.equals(username.getText()) && teachid.contentEquals(password.getText())) {
                             valid = 1;
                             String r1 = resultSet.getString("Name");
                             String r2 = resultSet.getString("Gender");
                             String r3 = resultSet.getString("Address");
-                            String r4 = resultSet.getString("RollNo");
+                            String r4 = resultSet.getString("Admin");
                             ViewTeach f = new ViewTeach();
                             f.update(r1, r2, r3, r4);
                             f.setVisible(true);
@@ -153,9 +150,14 @@ class Login
             }
 
         } else if (e.getSource() == reg) {
+            if (actype.getSelectedItem() == "Student") {
             EditFrame f = new EditFrame();
             f.update("", "", "", "", "", "", "", "", 1);
             f.setVisible(true);
+            }
+            else if(actype.getSelectedItem() == "Teacher") {
+                EditTeach f = new EditTeach();
+            }
         }
 
     }
